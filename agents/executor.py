@@ -40,6 +40,7 @@ class ExecutorAgent:
             
             for i, step in enumerate(steps):
                 step_number = i + 1
+                step_desc = step.get('description', 'Unknown step')
                 print(f"Executing step {step_number}/{len(steps)}: {step.get('description', 'Unknown step')}")
                 
                 # Execute step with retry logic
@@ -49,6 +50,7 @@ class ExecutorAgent:
                 if step_result["success"]:
                     successful_steps += 1
                 else:
+                    error_msg = result.get('error', 'Unknown error')
                     print(f"Step {step_number} failed: {step_result.get('error', 'Unknown error')}")
             
             # Determine overall success

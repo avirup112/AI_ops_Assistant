@@ -204,7 +204,10 @@ Please format this into a clean, user-friendly response that addresses the origi
         
         formatted = []
         for i, repo in enumerate(github_data[:5], 1):
-            formatted.append(f"{i}. {repo.get('name', 'Unknown')} - {repo.get('stars', 0)} stars - {repo.get('description', 'No description')}")
+            name = repo.get('name', 'Unknown')
+            stars = repo.get('stars', 0)
+            desc = repo.get('description', 'No description')
+            formatted.append(f"{i}. {name} - {stars} stars - {desc}")
         
         return "\n".join(formatted)
     
@@ -238,7 +241,7 @@ Please format this into a clean, user-friendly response that addresses the origi
                 elif result.get("tool_name") == "weather_current" and tool_result.get("success"):
                     weather_info.append(tool_result.get("data", {}))
         
-        # Format GitHub results
+        # Show Github repos if we have any
         if github_repos:
             response_parts.append("GitHub Repositories:")
             for i, repo in enumerate(github_repos[:5], 1):
@@ -247,7 +250,7 @@ Please format this into a clean, user-friendly response that addresses the origi
                     response_parts.append(f"   {repo.get('description')}")
             response_parts.append("")
         
-        # Format weather results
+        # Show weather results
         if weather_info:
             response_parts.append("Weather Information:")
             for weather in weather_info:

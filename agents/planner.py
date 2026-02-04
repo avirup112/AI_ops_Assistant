@@ -21,6 +21,8 @@ class PlannerAgent:
     
     def __init__(self):
         self.llm = get_llm(temperature=0.1)
+
+        # Define available tools and their specs
         self.available_tools = {
             "github_search": {
                 "description": "Search GitHub repositories by query",
@@ -81,7 +83,6 @@ Important:
 - Ensure all required parameters are included
 """
 
-            # Get response from LLM
             messages = [
                 SystemMessage(content=system_prompt),
                 HumanMessage(content=user_prompt)
@@ -90,7 +91,7 @@ Important:
             response = self.llm.invoke(messages)
             response_text = response.content.strip()
             
-            # Parse the JSON response
+            # Try to Parse the JSON response
             try:
                 plan_data = json.loads(response_text)
                 
